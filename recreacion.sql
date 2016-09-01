@@ -73,10 +73,31 @@ SELECT * FROM usuarios;
 
 delimiter //
 CREATE PROCEDURE registro_sitio(
-	IN _longitud varchar(255) NOT NULL,
-    latitud varchar(255) NOT NULL,
-       src varchar(255) NOT NULL
+	IN _longitud varchar(255),
+	_latitud varchar(255),
+	_src varchar(255),
+	_nombre varchar(50),
+	_nombre_sito varchar(255),
+    _descripcion varchar(255),
+    _ciudad varchar(60)
+       
 )BEGIN 
-	INSERT INTO  VALUES();
+	DECLARE _lastIDU int;
+    DECLARE _lastIDF int;
+    DECLARE _lastIDC int;
+	INSERT INTO ubicacion(longitud,latitud) VALUES(_longitud,_latitud);
+	SET _lastIDU = LAST_INSERT_ID();
+    INSERT INTO fotos(src) VALUES(_src);
+	SET _lastIDF = LAST_INSERT_ID();
+    INSERT INTO categoria(nombre) VALUES(_nombre);
+    SET _lastIDC = LAST_INSERT_ID();
+    INSERT 
+    INTO sitio( nombre,descripcion,ciudad,id_ubicacion,id_fotos,id_categoria) 
+    VALUES(_nombre_sito,_descripcion,_ciudad,_lastIDU,_lastIDF,_lastIDC);
 END
 // delimiter ;
+
+CALL registro_sitio('12.213','12.121','C/:img/bi.jpg','Turismo','San agustin','San Agustín es una población y municipio de Colombia ubicado en el sur del Departamento del Huila. Ubicado a una altura de 1.730 metros','Municipio San agustin');
+SELECT * FROM sitio;
+CALL registro_sitio('12.213','12.121','C/:img/bias.jpg','Turismo','Desierto','El Desierto de la Tatacoa es la segunda zona árida más extensa de Colombia después de la península de la Guajira','Municipio villa vieja');
+
