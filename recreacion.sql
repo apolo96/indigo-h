@@ -29,7 +29,7 @@ CREATE TABLE sitio(
     ciudad varchar(60) NOT NULL,
     id_ubicacion bigint(255),
     id_fotos bigint(20),
-    id_categoria bigint(20),
+    id_categoria bigint(20),    
     CONSTRAINT FOREIGN KEY fk_ubicacion(id_ubicacion) REFERENCES ubicacion(id),
     CONSTRAINT FOREIGN KEY fk_fotos(id_fotos) REFERENCES fotos(id),
     CONSTRAINT FOREIGN KEY fk_categoria(id_categoria) REFERENCES categorias(id)
@@ -72,11 +72,22 @@ SELECT * FROM usuarios;
 -- // delimiter ;
 
 delimiter //
-CREATE PROCEDURE registro_sitio(
-	IN _longitud varchar(255) NOT NULL,
-    latitud varchar(255) NOT NULL,
-       src varchar(255) NOT NULL
+CREATE PROCEDURE registro_comentarios(
+	IN	_descripcion varchar(255),
+		_id_sitio bigint(20),
+		_id_persona bigint(20)
 )BEGIN 
-	INSERT INTO  VALUES();
+	INSERT INTO comentarios(descripcion,id_sitio,id_persona) VALUES(_descripcion,_id_sitio,_id_persona);
+END
+// delimiter 
+
+CALL registro_comentarios('miller','garcia','miller@gmail.com','123');
+SELECT * FROM usuarios;
+
+CREATE PROCEDURE registro_puntuacion(
+	IN	_puntuacion bigint(5),
+		_id_sitio bigint(50)
+)BEGIN 
+	INSERT INTO puntuacion(puntuacion,id_sitio) VALUES(_puntuacion,_id_sitio);
 END
 // delimiter ;
